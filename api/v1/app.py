@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" app model """
+""" Flask Application """
 from models import storage
 from api.v1.views import app_views
 from os import environ
@@ -23,7 +23,10 @@ def close_db(error):
 @app.errorhandler(404)
 def not_found(error):
     """ 404 Error
-    if not founded
+    ---
+    responses:
+      404:
+        description: a resource was not found
     """
     return make_response(jsonify({'error': "Not found"}), 404)
 
@@ -36,7 +39,7 @@ Swagger(app)
 
 
 if __name__ == "__main__":
-    """ Main def func """
+    """ Main Function """
     host = environ.get('HBNB_API_HOST')
     port = environ.get('HBNB_API_PORT')
     if not host:
@@ -44,3 +47,4 @@ if __name__ == "__main__":
     if not port:
         port = '5000'
     app.run(host=host, port=port, threaded=True)
+
